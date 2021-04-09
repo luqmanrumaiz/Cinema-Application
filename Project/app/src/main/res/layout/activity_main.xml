@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/grey_black"
+    tools:context=".HomeActivity">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/homeRegisterButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/home_register_button_label"
-
+        android:onClick="navigateFeatures"
+        android:backgroundTint="@color/yellow"
+        app:cornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/homeDisplayButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,21 +27,24 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/home_display_button_label"
+        android:backgroundTint="@color/yellow"
+        app:cornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/homeFavoriteButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeRegisterButton" />
-
 
     <Button
         android:id="@+id/homeFavoriteButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="@color/yellow"
         android:text="@string/home_favorites_button_label"
+        app:cornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/homeEditButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeDisplayButton" />
 
@@ -48,6 +54,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/home_edit_button_label"
+        android:backgroundTint="@color/yellow"
+        app:cornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/homeFilterButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +67,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/home_filter_button_label"
+        android:backgroundTint="@color/yellow"
+        app:cornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/homeRatingsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +79,9 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="@color/yellow"
         android:text="@string/home_ratings_button_label"
+        app:cornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

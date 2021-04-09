@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">Cinema App</string>
 
+    <!--Strings for the Home Page Buttons-->
     <string name="home_register_button_label">Register a Movie</string>
     <string name="home_display_button_label">Display Registered Movies</string>
     <string name="home_favorites_button_label">Favorites</string>
     <string name="home_edit_button_label">Edit Registered Movies</string>
     <string name="home_filter_button_label">Filter Registered Movies</string>
     <string name="home_ratings_button_label">View Movie Ratings</string>
+
+    <!--Strings for the Register Page TextBoxes-->
+    <string name="register_title_textbox_label">Movie Title</string>
+    <string name="register_year_textbox_label">Year Released</string>
+    <string name="register_director_textbox_label">Director Name</string>
+    <string name="register_actor_actress_textbox_label">Actor and Actresses (Separate with ",")</string>
+    <string name="register_rating_textbox_label">Rating (0–10)</string>
+    <string name="register_review_textbox_label">Review</string>
 </resources>
