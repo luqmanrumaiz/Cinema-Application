@@ -7,17 +7,17 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 
-public class DisplayActivity extends AppCompatActivity
+public class FavoritesActivity extends AppCompatActivity
 {
-    String[] movieTitles = {"ABC", "BAC", "CBA"};
-    Movie[] movies;
+    String[] favoriteMovieTitles = {"ABC", "BAC", "CBA"};
+    Movie[] favoriteMovies;
     ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display);
+        setContentView(R.layout.activity_favorites);
         listView = findViewById(R.id.displayMovieListView);
         setListView();
     }
@@ -25,7 +25,7 @@ public class DisplayActivity extends AppCompatActivity
     public void setListView()
     {
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_multiple_choice, movieTitles);
+                android.R.layout.simple_list_item_multiple_choice, favoriteMovieTitles);
 
         listView.setAdapter(adapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -38,4 +38,3 @@ public class DisplayActivity extends AppCompatActivity
         });
     }
 }
-

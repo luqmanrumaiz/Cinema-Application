@@ -19,4 +19,7 @@
 
     <!--Strings for the Display Page TextBoxes-->
     <string name="display_favorite_button_label">Save Favorites</string>
+
+    <!--Strings for the Display Page TextBoxes-->
+    <string name="favorites_deselect_favorite_button_label">Remove from Favorites</string>
 </resources>
