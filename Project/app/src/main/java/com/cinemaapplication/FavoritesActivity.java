@@ -18,7 +18,7 @@ public class FavoritesActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
-        listView = findViewById(R.id.displayMovieListView);
+        listView = findViewById(R.id.favoriteMoviesListView);
         setListView();
     }
 

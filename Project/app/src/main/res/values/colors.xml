@@ -10,4 +10,7 @@
     <color name="yellow">#FFC107</color>
     <color name="dark_yellow">#978700</color>
     <color name="grey_black">#2E2E2E</color>
+    <color name="light_grey">#CFCFCF</color>
+    <color name="light_pink">#FF90B5</color>
+    <color name="pink">#E91E63</color>
 </resources>

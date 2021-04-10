@@ -8,7 +8,7 @@
     tools:context=".DisplayActivity">
 
     <ListView
-        android:id="@+id/displayMovieListView"
+        android:id="@+id/registeredMoviesListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="120dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/registerMovieButton"
+        android:id="@+id/favoriteMovieButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayMovieListView"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteMoviesListView"
         app:layout_constraintVertical_bias="0.89" />
 
 

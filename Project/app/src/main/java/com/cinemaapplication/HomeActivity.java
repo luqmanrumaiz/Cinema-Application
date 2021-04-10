@@ -40,6 +40,10 @@ public class HomeActivity extends AppCompatActivity
 
             intent = new Intent(this, FavoritesActivity.class);
 
+        else if (view.getId() == R.id.homeEditButton)
+
+            intent = new Intent(this, EditActivity.class);
+
         startActivity(intent);
 
     }

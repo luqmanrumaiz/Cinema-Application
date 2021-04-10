@@ -9,6 +9,5 @@
         <item name="fontFamily">@font/poppins</item>
 
         <item name="android:checkMarkTint">@color/yellow</item>
-
     </style>
 </resources>

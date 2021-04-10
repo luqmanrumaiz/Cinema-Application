@@ -18,7 +18,7 @@ public class DisplayActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
-        listView = findViewById(R.id.displayMovieListView);
+        listView = findViewById(R.id.registeredMoviesListView);
         setListView();
     }
 
