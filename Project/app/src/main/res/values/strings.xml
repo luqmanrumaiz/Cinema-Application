@@ -16,4 +16,7 @@
     <string name="register_actor_actress_textbox_label">Actor and Actresses (Separate with ",")</string>
     <string name="register_rating_textbox_label">Rating (0–10)</string>
     <string name="register_review_textbox_label">Review</string>
+
+    <!--Strings for the Display Page TextBoxes-->
+    <string name="display_favorite_button_label">Save Favorites</string>
 </resources>

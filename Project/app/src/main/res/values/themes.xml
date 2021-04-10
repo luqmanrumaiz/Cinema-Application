@@ -7,5 +7,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/dark_yellow</item>
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/poppins</item>
+
+        <item name="android:checkMarkTint">@color/yellow</item>
+
     </style>
 </resources>

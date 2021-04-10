@@ -32,6 +32,10 @@ public class HomeActivity extends AppCompatActivity
 
             intent = new Intent(this, RegisterActivity.class);
 
+        else if (view.getId() == R.id.homeDisplayButton)
+
+            intent = new Intent(this, DisplayActivity.class);
+
         startActivity(intent);
 
     }
