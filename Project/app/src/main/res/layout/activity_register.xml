@@ -13,50 +13,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/register_title_textbox_label"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/yearTextField"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/register_year_textbox_label"
-            android:paddingTop="20dp">
+        app:layout_constraintVertical_bias="0.24000001">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/directorTextField"
+                android:id="@+id/yearTextField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/register_director_textbox_label"
+                android:hint="@string/register_year_textbox_label"
                 android:paddingTop="20dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/actorAndActressTextField"
+                    android:id="@+id/directorTextField"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/register_actor_actress_textbox_label"
+                    android:hint="@string/register_director_textbox_label"
                     android:paddingTop="20dp">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/ratingTextField"
+                        android:id="@+id/actorAndActressTextField"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/register_rating_textbox_label"
+                        android:hint="@string/register_actor_actress_textbox_label"
                         android:paddingTop="20dp">
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/reviewTextField"
+                            android:id="@+id/ratingTextField"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="@string/register_review_textbox_label"
+                            android:hint="@string/register_rating_textbox_label"
                             android:paddingTop="20dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/reviewTextField"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="@string/register_review_textbox_label"
+                                android:paddingTop="20dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
@@ -88,10 +97,21 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/registerMovieButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/yellow"
+        android:padding="20dp"
+        android:text="@string/home_register_button_label"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextField"
+        app:layout_constraintVertical_bias="0.89" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
