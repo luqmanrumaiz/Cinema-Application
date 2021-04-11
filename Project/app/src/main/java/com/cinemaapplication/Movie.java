@@ -6,22 +6,23 @@ import java.util.List;
 public class Movie
 {
     private String title;
-    private String date;
+    private String year;
     private String review;
     private String director;
-    private List<String> actorActressList;
+    private String actorActress;
     private int rating;
     private boolean favorite = false;
 
-    public Movie(String title, String date, String review, String director, int rating, boolean favorite)
+    public Movie(String title, String year, String review, String director, String actorActress,
+                 int rating, boolean favorite)
     {
         this.title = title;
-        this.date = date;
+        this.year = year;
         this.review = review;
         this.director = director;
+        this.actorActress = actorActress;
         this.rating = rating;
         this.favorite = favorite;
-        actorActressList = new ArrayList<>();
     }
 
     public String getTitle()
@@ -34,14 +35,14 @@ public class Movie
         this.title = title;
     }
 
-    public String getDate()
+    public String getYear()
     {
-        return date;
+        return year;
     }
 
-    public void setDate(String date)
+    public void setYear(String year)
     {
-        this.date = date;
+        this.year = year;
     }
 
     public String getReview()
@@ -74,14 +75,13 @@ public class Movie
         this.rating = rating;
     }
 
-    public List<String> getActorActressList()
-    {
-        return actorActressList;
+    public String getActorActress() {
+        return actorActress;
     }
 
-    public void setActorActressList(List<String> actorActressList)
+    public void setActorActress(String actorActress)
     {
-        this.actorActressList = actorActressList;
+        this.actorActress = actorActress;
     }
 
     public boolean isFavorite()
@@ -92,25 +92,6 @@ public class Movie
     public void setFavorite(boolean favorite)
     {
         this.favorite = favorite;
-    }
-
-    public void addActorOrActress(String actorOrActressName)
-    {
-        actorActressList.add(actorOrActressName);
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Movie{" +
-                "title='" + title + '\'' +
-                ", date='" + date + '\'' +
-                ", review='" + review + '\'' +
-                ", director='" + director + '\'' +
-                ", actorActressList=" + actorActressList +
-                ", rating=" + rating +
-                ", favorite=" + favorite +
-                '}';
     }
 }
 

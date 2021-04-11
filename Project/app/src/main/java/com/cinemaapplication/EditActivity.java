@@ -27,8 +27,8 @@ public class EditActivity extends AppCompatActivity
 
     public void setListView()
     {
-        registeredMovies = new ArrayList<Movie>();
-        registeredMovies.add(new Movie("ABC", "2020-12-12", "GREAT", "LUQMAN", 10, false));
+        registeredMovies = new ArrayList<>();
+        registeredMovies.add(new Movie("ABC", "2020-12-12", "GREAT", "LUQMAN", "sad", 10, false));
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, registeredMoviesTitles);
@@ -40,28 +40,10 @@ public class EditActivity extends AppCompatActivity
         {
             Intent intent = new Intent(this, EditInfoActivity.class);
             intent.putExtra("title", registeredMovies.get(position).getTitle());
-            intent.putExtra("date", registeredMovies.get(position).getDate());
-            intent.putExtra("title", registeredMovies.get(position).getDirector());
+            intent.putExtra("year", registeredMovies.get(position).getYear());
+            intent.putExtra("director", registeredMovies.get(position).getDirector());
             intent.putExtra("title", registeredMovies.get(position).getRating());
             intent.putExtra("title", registeredMovies.get(position).getReview());
-
-            String actorActressAllNames = "";
-            int count = 0;
-
-            for (String actorActressName : registeredMovies.get(position).getActorActressList())
-            {
-                if ( (count + 1)  == registeredMovies.get(position).getActorActressList().size())
-
-                    actorActressAllNames = actorActressName;
-
-                else
-
-                    actorActressAllNames = actorActressName + ",";
-
-                count ++;
-            }
-
-            intent.putExtra("title", actorActressAllNames);
             startActivity(intent);
         });
     }
