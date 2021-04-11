@@ -12,7 +12,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
     }
 
     /**
@@ -43,6 +43,10 @@ public class HomeActivity extends AppCompatActivity
         else if (view.getId() == R.id.homeEditButton)
 
             intent = new Intent(this, EditActivity.class);
+
+        else if (view.getId() == R.id.homeSearchButton)
+
+            intent = new Intent(this, SearchActivity.class);
 
         startActivity(intent);
 

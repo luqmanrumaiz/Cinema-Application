@@ -60,17 +60,17 @@
         android:backgroundTint="@color/yellow"
         android:onClick="navigateFeatures"
         app:cornerRadius="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/homeFilterButton"
+        app:layout_constraintBottom_toTopOf="@+id/homeSearchButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeFavoriteButton" />
 
     <Button
-        android:id="@+id/homeFilterButton"
+        android:id="@+id/homeSearchButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/home_filter_button_label"
+        android:text="@string/home_search_button_label"
         android:backgroundTint="@color/yellow"
         android:onClick="navigateFeatures"
         app:cornerRadius="100dp"
@@ -91,7 +91,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFilterButton" />
+        app:layout_constraintTop_toBottomOf="@+id/homeSearchButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

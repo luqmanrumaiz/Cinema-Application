@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaApplication">
-        <activity android:name=".EditInfoActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".EditInfoActivity" />
         <activity android:name=".EditActivity" />
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".DisplayActivity" />

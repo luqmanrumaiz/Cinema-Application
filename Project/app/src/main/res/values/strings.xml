@@ -3,10 +3,10 @@
 
     <!--Strings for the Home Page Buttons-->
     <string name="home_register_button_label">Register a Movie</string>
-    <string name="home_display_button_label">Display Registered Movies</string>
+    <string name="home_display_button_label">Display Movies</string>
     <string name="home_favorites_button_label">Favorites</string>
-    <string name="home_edit_button_label">Edit Registered Movies</string>
-    <string name="home_filter_button_label">Filter Registered Movies</string>
+    <string name="home_edit_button_label">Edit Movies</string>
+    <string name="home_search_button_label">Search Movies</string>
     <string name="home_ratings_button_label">View Movie Ratings</string>
 
     <!--Strings for the Register Page TextBoxes-->
@@ -25,4 +25,7 @@
 
     <!--Strings for the Edit Page TextBoxes-->
     <string name="edit_movie_button_label">Edit Movie</string>
+
+    <!--Strings for the Search Page TextBoxes-->
+    <string name="search_movie_button_label">Search</string>
 </resources>
