@@ -110,4 +110,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " SET " + COL8 + " = " + favorite +
                 " WHERE " + COL2 + " = '" + title + "'");
     }
+
+    public void editMovie(int id, Movie movie)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int favorite = 0;
+
+        if (movie.isFavorite())
+
+            favorite = 1;
+
+        db.execSQL("REPLACE INTO " + TABLE_NAME +
+                " (movieId, title, year, director, actor_actress, rating, review, favorite)" +
+                " Values(" + id + ", '" + movie.getTitle() + "', '" + movie.getYear() + "', '" + movie.getDirector() +
+                "', '" + movie.getActorActress() + "', " + movie.getRating() + ", '" + movie.getReview() +
+                "', " + favorite + ")");
+    }
 }

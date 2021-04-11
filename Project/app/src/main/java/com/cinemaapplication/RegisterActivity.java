@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity
 
         System.out.println(rating);
 
-        databaseHelper.addData(new Movie(title, year, director, actorActress, review, 0, false));
+        databaseHelper.addData(new Movie(title, year, director, actorActress, rating, review, false));
 
         titleInputLayout.setPlaceholderText("");
         dateInputLayout.setPlaceholderText("");

@@ -13,8 +13,8 @@ public class Movie
     private int rating;
     private boolean favorite = false;
 
-    public Movie(String title, String year, String review, String director, String actorActress,
-                 int rating, boolean favorite)
+    public Movie(String title, String year, String director, String actorActress,
+                 int rating, String review, boolean favorite)
     {
         this.title = title;
         this.year = year;
