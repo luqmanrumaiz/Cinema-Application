@@ -28,6 +28,7 @@
         android:padding="20dp"
         android:text="@string/favorites_deselect_favorite_button_label"
         android:textColor="@color/white"
+        android:onClick="saveFavorites"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +36,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favoriteMoviesListView"
         app:layout_constraintVertical_bias="0.89" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
