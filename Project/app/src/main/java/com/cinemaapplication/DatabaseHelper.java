@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 {
     private static final String DATABASE_NAME = "movie_manager";
     private static final String TABLE_NAME = "movie_table";
-    private static final String COL1 = "employeeId";
+    private static final String COL1 = "movieId";
     private static final String COL2 = "title";
     private static final String COL3 = "year";
     private static final String COL4 = "director";
@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         if (listLabels.contains(movieToAdd.getTitle()))
         {
-            Toast.makeText(context,"Employee already exists", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Movie Already has been Registered", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -87,11 +87,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
                     " (title, year, director, actor_actress, rating, review, favorite)" +
                     " values('"
                     + movieToAdd.getTitle() + "', '" + movieToAdd.getYear() + "', '"
-                    + movieToAdd.getDirector() + "', '" +  movieToAdd.getActorActress() + "', '"
-                    + movieToAdd.getRating() + "', '" + movieToAdd.getReview() + "', '" +  favorite
-                    + "')");
+                    + movieToAdd.getDirector() + "', '" +  movieToAdd.getActorActress() + "', "
+                    + movieToAdd.getRating() + ", '" + movieToAdd.getReview() + "', " +  favorite
+                    + ")");
 
-            Toast.makeText(context, "Data Saved Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Movie Registered Successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -102,13 +102,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return db.rawQuery(query, null);
     }
 
-    public Cursor getItemID(String name)
+    public void makeFavorite(int id, String title, int favorite)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query =
-                "SELECT " + COL1 +
-                " FROM " + TABLE_NAME +
-                " WHERE " + COL2 + " = '" + name + "'";
-        return db.rawQuery(query, null);
+
+        db.execSQL("UPDATE " + TABLE_NAME +
+                " SET " + COL8 + " = " + favorite +
+                " WHERE " + COL2 + " = '" + title + "'");
     }
 }

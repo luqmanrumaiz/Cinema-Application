@@ -13,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/home_register_button_label"
+        android:textStyle="bold"
         android:onClick="navigateFeatures"
         android:backgroundTint="@color/yellow"
         app:cornerRadius="100dp"

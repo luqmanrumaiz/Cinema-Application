@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity
     String director;
     String actorActress;
     String review;
+    int rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,15 +58,11 @@ public class RegisterActivity extends AppCompatActivity
         director = directorInputLayout.getEditText().getText().toString().trim();
         actorActress = actorActressInputLayout.getEditText().getText().toString().trim();
         review = reviewInputLayout.getEditText().getText().toString().trim();
+        rating = Integer.parseInt(ratingInputLayout.getEditText().getText().toString().trim());
 
-        titleInputLayout.setError("sad");
+        System.out.println(rating);
 
-        for (int i = 0; i < actorActress.length(); i++)
-        {
-            if (actorActress.charAt(i) == ',')
-
-                actorActressInputLayout.setErrorEnabled(true);
-        }
+        databaseHelper.addData(new Movie(title, year, director, actorActress, review, 0, false));
 
         titleInputLayout.setPlaceholderText("");
         dateInputLayout.setPlaceholderText("");

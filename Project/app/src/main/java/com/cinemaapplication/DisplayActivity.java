@@ -1,41 +1,107 @@
 package com.cinemaapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CheckedTextView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class DisplayActivity extends AppCompatActivity
 {
-    String[] movieTitles = {"ABC", "BAC", "CBA"};
-    Movie[] movies;
-    ListView listView;
+    private ArrayList<String> movieTitles;
+    private ArrayList<Boolean> favorites;
+    private DatabaseHelper databaseHelper;
+    private ListView listView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
-        listView = findViewById(R.id.registeredMoviesListView);
-        setListView();
+        listView = (ListView) findViewById(R.id.registeredMoviesListView);
+        databaseHelper = new DatabaseHelper(this);
+
+        populateListView();
     }
 
-    public void setListView()
+    private void populateListView()
     {
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_multiple_choice, movieTitles);
+        // Getting the Data from the Database and Adding it to a List to a list
+        Cursor data = databaseHelper.getData();
+        movieTitles = new ArrayList<>();
+        favorites = new ArrayList<>();
 
+        // With the Cursor we can easily move through each row through the Data from the Table
+        while(data.moveToNext())
+        {
+            // Titles exist in the Second Column at index 1
+            movieTitles.add(data.getString(1));
+
+            // Adding the boolean determining whether the movie is favorite or not (1 if true else false)
+            favorites.add(data.getInt(7) == 1);
+        }
+
+        /* Creating the List Adapter to interpret the ArrayList to the ListView and with each Row with
+         * the simple_list_item_multiple_choice Layout to make each Row have a Checkbox for marking
+         * favorites
+         */
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, movieTitles);
         listView.setAdapter(adapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);  // Gives the Ability to mark Multiple Checkboxes
         listView.setOnItemClickListener((parent, view, position, id) ->
         {
-            listView.getItemAtPosition(position);
-            CheckedTextView checkedTextView = ((CheckedTextView)view);
-            System.out.println(checkedTextView.isChecked() + "" + position);
+            CheckedTextView checkedTextView = (CheckedTextView) view;
+            favorites.set(position, checkedTextView.isChecked());
         });
+
+        // For Loop that Updates the Checkboxes based on if the Movie is favorite or not
+        int count = 0;
+        for (Boolean favorite : favorites)
+        {
+            listView.setItemChecked(count, favorite);
+            count ++;
+        }
+
+    }
+
+    /**
+     * This Method saves the Booleans in the favorites ArrayList which correspond to if a Movie
+     * is a favorite or not in to the SQLLite Database
+     *
+     * @param view The Button View
+     */
+    public void saveFavorites(View view)
+    {
+        int count = 0;
+        for (Boolean favorite : favorites)
+        {
+            // SQLLite does not support Booleans therefore it is represented as 1 for true and 0 for false
+            if (favorite)
+
+                databaseHelper.makeFavorite(count, movieTitles.get(count), 1);
+
+            else databaseHelper.makeFavorite(count, movieTitles.get(count), 0);
+
+            count ++;
+        }
+    }
+
+    private void toastMessage(String message)
+    {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
-
