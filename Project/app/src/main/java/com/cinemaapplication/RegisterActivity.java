@@ -13,20 +13,21 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterActivity extends AppCompatActivity
 {
-    DatabaseHelper databaseHelper;
+    private DatabaseHelper databaseHelper;
 
-    TextInputLayout titleInputLayout;
-    TextInputLayout dateInputLayout;
-    TextInputLayout directorInputLayout;
-    TextInputLayout actorActressInputLayout;
-    TextInputLayout reviewInputLayout;
-    TextInputLayout ratingInputLayout;
-    String title;
-    String year;
-    String director;
-    String actorActress;
-    String review;
+    private TextInputLayout titleInputLayout;
+    private TextInputLayout dateInputLayout;
+    private TextInputLayout directorInputLayout;
+    private TextInputLayout actorActressInputLayout;
+    private TextInputLayout reviewInputLayout;
+    private TextInputLayout ratingInputLayout;
+    private String title;
+    private String year;
+    private String director;
+    private String actorActress;
+    private String review;
     int rating;
+    private boolean error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,11 +37,30 @@ public class RegisterActivity extends AppCompatActivity
 
         // All Material TextFields
         titleInputLayout = findViewById(R.id.titleTextField);
+        titleInputLayout.getEditText().addTextChangedListener(
+                new CustomTextWatcher(titleInputLayout.getEditText(), titleInputLayout, this));
+
         dateInputLayout = findViewById(R.id.yearTextField);
+        dateInputLayout.getEditText().addTextChangedListener(
+                new CustomTextWatcher(dateInputLayout.getEditText(), dateInputLayout, this));
+
+
         directorInputLayout = findViewById(R.id.directorTextField);
+        directorInputLayout.getEditText().addTextChangedListener(
+                new CustomTextWatcher(directorInputLayout.getEditText(), directorInputLayout, this));
+
         actorActressInputLayout = findViewById(R.id.actorAndActressTextField);
+        actorActressInputLayout.getEditText().addTextChangedListener(
+                new CustomTextWatcher(actorActressInputLayout.getEditText(), actorActressInputLayout, this));
+
         reviewInputLayout = findViewById(R.id.reviewTextField);
+        reviewInputLayout.getEditText().addTextChangedListener(
+                new CustomTextWatcher(reviewInputLayout.getEditText(), reviewInputLayout, this));
+
         ratingInputLayout = findViewById(R.id.ratingTextField);
+        ratingInputLayout.getEditText().addTextChangedListener(
+                new CustomTextWatcher(ratingInputLayout.getEditText(), ratingInputLayout, this));
+
     }
 
     /**
@@ -60,8 +80,6 @@ public class RegisterActivity extends AppCompatActivity
         review = reviewInputLayout.getEditText().getText().toString().trim();
         rating = Integer.parseInt(ratingInputLayout.getEditText().getText().toString().trim());
 
-        System.out.println(rating);
-
         databaseHelper.addData(new Movie(title, year, director, actorActress, rating, review, false));
 
         titleInputLayout.setPlaceholderText("");
@@ -70,5 +88,10 @@ public class RegisterActivity extends AppCompatActivity
         actorActressInputLayout.setPlaceholderText("");
         reviewInputLayout.setPlaceholderText("");
         ratingInputLayout.setPlaceholderText("");
+    }
+
+    public void setError(boolean error)
+    {
+        this.error = error;
     }
 }
