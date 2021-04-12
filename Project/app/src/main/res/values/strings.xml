@@ -28,4 +28,7 @@
 
     <!--Strings for the Search Page TextBoxes-->
     <string name="search_movie_button_label">Search</string>
+
+    <!--Strings for the Search Page TextBoxes-->
+    <string name="ratings_movie_button_label">Find Rating</string>
 </resources>

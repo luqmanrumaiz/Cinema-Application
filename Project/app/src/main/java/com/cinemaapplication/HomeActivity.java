@@ -48,6 +48,10 @@ public class HomeActivity extends AppCompatActivity
 
             intent = new Intent(this, SearchActivity.class);
 
+        else if (view.getId() == R.id.homeRatingsButton)
+
+            intent = new Intent(this, RatingsActivity.class);
+
         startActivity(intent);
 
     }
