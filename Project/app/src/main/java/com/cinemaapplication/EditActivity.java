@@ -100,9 +100,9 @@ public class EditActivity extends AppCompatActivity
             // SQLLite does not support Booleans therefore it is represented as 1 for true and 0 for false
             if (favorite)
 
-                databaseHelper.makeFavorite(count, movieTitles.get(count), 1);
+                databaseHelper.makeFavorite(movieTitles.get(count), 1);
 
-            else databaseHelper.makeFavorite(count, movieTitles.get(count), 0);
+            else databaseHelper.makeFavorite(movieTitles.get(count), 0);
 
             count ++;
         }

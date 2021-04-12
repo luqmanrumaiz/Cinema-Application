@@ -91,7 +91,6 @@ public class EditInfoActivity extends AppCompatActivity
         }
         else
         {
-
             // Getting all String and Integer Values from the TextFields
             String title = titleInputLayout.getEditText().getText().toString().trim();
             String year = dateInputLayout.getEditText().getText().toString().trim();

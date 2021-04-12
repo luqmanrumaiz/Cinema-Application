@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -72,6 +74,9 @@ public class FoundMoviesActivity extends AppCompatActivity
      */
     public void showDialogWithMoviePoster(int position)
     {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         /* Inflating a new View with the Custom Layout made for this AlertDialog and changing the
@@ -106,8 +111,7 @@ public class FoundMoviesActivity extends AppCompatActivity
         ImageView imageView = dialogView.findViewById(R.id.moviePosterImage);
         imageView.setImageBitmap(bmp);
 
-        AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.show();
-
+        dialog.setContentView(dialogView);
+        dialog.show();
     }
 }

@@ -35,4 +35,6 @@
     <!--Strings for the Search Page TextBoxes-->
     <string name="movie_poster_image_view_content_description">Movie Poster</string>
 
+    <!--Strings for Custom Layouts-->
+    <string name="loading_label_progress_dialog">Loading …</string>
 </resources>

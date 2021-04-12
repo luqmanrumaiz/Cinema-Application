@@ -1,7 +1,4 @@
-package com.cinemaapplication;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.cinemaapplication;;
 
 public class Movie
 {
@@ -11,7 +8,7 @@ public class Movie
     private String director;
     private String actorActress;
     private int rating;
-    private boolean favorite = false;
+    private boolean favorite;
 
     public Movie(String title, String year, String director, String actorActress,
                  int rating, String review, boolean favorite)
@@ -92,6 +89,20 @@ public class Movie
     public void setFavorite(boolean favorite)
     {
         this.favorite = favorite;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", review='" + review + '\'' +
+                ", director='" + director + '\'' +
+                ", actorActress='" + actorActress + '\'' +
+                ", rating=" + rating +
+                ", favorite=" + favorite +
+                '}';
     }
 }
 

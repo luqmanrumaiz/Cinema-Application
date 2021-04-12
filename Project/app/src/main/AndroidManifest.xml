@@ -12,14 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaApplication">
-        <activity android:name=".FoundMoviesActivity"></activity>
-        <activity android:name=".RatingsActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".EditInfoActivity" />
-        <activity android:name=".EditActivity" />
-        <activity android:name=".FavoritesActivity" />
-        <activity android:name=".DisplayActivity" />
-        <activity android:name=".RegisterActivity" />
+
+        <!--android:configChanges="orientation|screenSize" is used to ensure that the Activity
+        is not destroyed when the configs orientation or screenSize are changed -->
+        <activity android:name=".FoundMoviesActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".RatingsActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".SearchActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".EditInfoActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".EditActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".FavoritesActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".DisplayActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".RegisterActivity" android:configChanges="orientation|screenSize" />
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

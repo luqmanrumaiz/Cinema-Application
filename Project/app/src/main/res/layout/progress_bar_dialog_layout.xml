@@ -14,8 +14,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:indeterminateTint="@color/yellow"
-            />
+            android:indeterminateTint="@color/yellow"/>
 
         <TextView
             android:gravity="center|left"
@@ -24,6 +23,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/grey_black"
             android:textSize="18sp"
-            android:text="Loading ..." />
+            android:text="@string/loading_label_progress_dialog" />
     </TableRow>
+
 </RelativeLayout>

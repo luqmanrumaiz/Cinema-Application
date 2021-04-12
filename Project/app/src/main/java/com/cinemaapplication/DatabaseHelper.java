@@ -142,13 +142,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     /**
      * This Method replaces the Integer that is used as a Boolean of the Favorite Column for a Row
-     * based on its ID and Title
+     * based on its Title
      *
-     * @param id The ID of the Movie
      * @param title The Title of the Movie
      * @param favorite Integer that determines if the Movie is favorite or not
      */
-    public void makeFavorite(int id, String title, int favorite)
+    public void makeFavorite(String title, int favorite)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -156,8 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL(
                 "UPDATE " + TABLE_NAME +
                 " SET " + COL8 + " = " + favorite +
-                " WHERE " + COL2 + " = '" + title + "' AND" +
-                COL1 + " = " + id);
+                " WHERE " + COL2 + " = '" + title + "'");
     }
 
     /**
