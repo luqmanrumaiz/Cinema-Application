@@ -102,6 +102,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return db.rawQuery(query, null);
     }
 
+    public Cursor getSearchedData(String filterData)
+    {
+        filterData = filterData.toUpperCase();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME +
+                " WHERE upper(" + COL2 + ") LIKE '%" + filterData + "%'" +
+                " OR upper(" + COL4 + ") LIKE '%" + filterData + "%'" +
+                " OR upper(" + COL5 + ") LIKE '%" + filterData + "%'";
+
+        return db.rawQuery(query, null);
+    }
+
     public void makeFavorite(int id, String title, int favorite)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -110,6 +123,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " SET " + COL8 + " = " + favorite +
                 " WHERE " + COL2 + " = '" + title + "'");
     }
+
+
 
     public void editMovie(int id, Movie movie)
     {

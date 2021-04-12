@@ -24,6 +24,6 @@
             android:layout_height="match_parent"
             android:textColor="@color/grey_black"
             android:textSize="18sp"
-            android:text="Loading Ratings ..." />
+            android:text="Loading ..." />
     </TableRow>
 </RelativeLayout>

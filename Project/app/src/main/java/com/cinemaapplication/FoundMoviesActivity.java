@@ -80,9 +80,12 @@ public class FoundMoviesActivity extends AppCompatActivity
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.image_dialog_layout, null);
         dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(true);
 
-        /* Try Catch Block that attempts to first parse the URL of the Movie Poster Image we want 
-         *
+        /* Try Catch Block that attempts to first parse the URL of the Movie Poster Image we want,
+         * then attempts to connect to the URL using the openConnection Method and the
+         * getInputStream Method attempts to get the Input Stream from that Socket. Finally the
+         * static method decodeStream is accessed to decode the Input Stream in to a BitMap
          */
         URL url;
         Bitmap bmp = null;
@@ -99,6 +102,7 @@ public class FoundMoviesActivity extends AppCompatActivity
         {
             e.printStackTrace();
         }
+        // Setting the Bitmap to the ImageView in the AlertDialog
         ImageView imageView = dialogView.findViewById(R.id.moviePosterImage);
         imageView.setImageBitmap(bmp);
 

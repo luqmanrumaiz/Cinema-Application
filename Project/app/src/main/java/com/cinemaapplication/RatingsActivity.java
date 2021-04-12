@@ -89,10 +89,37 @@ public class RatingsActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This Method shows an AlertDialog with a ProgressBar that is used to show that something is
+     * Loading (In cases where it takes time to get and process a lot of Data from the API it is used )
+     */
+    public void showDialogWithProgressBar()
+    {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        /* Inflating a new View with the Custom Layout made for this AlertDialog and changing the
+         * View of the AlertDialog to this Inflated View
+         */
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.progress_bar_dialog_layout, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(false);
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * This Method
+     *
+     * @param checkedMovieTitle
+     */
     public void loadMovieTitlesAndImageURLs(String checkedMovieTitle)
     {
+        // Creating a Separate Worker Thread to reduce load on Main UI Thread
         Thread thread = new Thread(() ->
         {
+            /* Constructing our API call by concatenating the API_KEY with the movieId with the API,
+             * then this is passed as the parameter for the called getJSONResult to get the JSON Body
+             */
             String JSONResult =
                     getJSONResult("https://imdb-api.com/en/API/SearchTitle/"+ API_KEY +
                             "/" + checkedMovieTitle);
@@ -102,6 +129,8 @@ public class RatingsActivity extends AppCompatActivity
             try
             {
                 jsonObject = new JSONObject(JSONResult);
+
+                // The JSON Array that contains
                 JSONArray movieResults = jsonObject.getJSONArray("results");
 
                 RatingsActivity.this.runOnUiThread(this::showDialogWithProgressBar);
@@ -113,18 +142,25 @@ public class RatingsActivity extends AppCompatActivity
                 for( int movieCount = 0 ; movieCount < movieResults.length() ; movieCount ++ )
                 {
                     JSONObject movie = movieResults.getJSONObject(movieCount);
-                    foundMovies.add(movie.getString("title") + " " +
+                    foundMovies.add(movie.getString("title") + " (" +
                             getMovieRating(movie.getString("id")));
 
                     foundMovieImageURls.add(movie.getString("image"));
+                    break;
                 }
 
+                // If not Movies Titles or Image URLs were found an Error Message is shown
                 if (foundMovies == null || foundMovieImageURls == null)
 
                     Toast.makeText(this, "No Movies were Found !", Toast.LENGTH_SHORT).show();
                 else
                 {
-                    alertDialog.dismiss();
+                    alertDialog.dismiss();  // Closing the AlertDialog now that the Data is loaded
+
+                    /* Making an Implicit Intent to the FoundMoviesActivity and adding the two
+                     * ArrayLists as extra data to be received using putExtra with the Keys of the
+                     * Extra Data as the ArrayLists' Variable name
+                     */
                     Intent intent = new Intent(this, FoundMoviesActivity.class);
                     intent.putExtra("foundMovies", foundMovies);
                     intent.putExtra("foundMovieImageURls", foundMovieImageURls);
@@ -139,19 +175,18 @@ public class RatingsActivity extends AppCompatActivity
         thread.start();
     }
 
-    public void showDialogWithProgressBar()
-    {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.progress_bar_dialog_layout, null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setCancelable(false);
-        alertDialog = dialogBuilder.create();
-        alertDialog.show();
-    }
-
+    /**
+     * This Method attempts to call an API to get the Rating of a specified Movie's Id
+     *
+     * @param movieId The ID of the Movie we want to Search for
+     *
+     * @return The Movie Rating
+     */
     public String getMovieRating(String movieId)
     {
+        /* Constructing our API call by concatenating the API_KEY with the movieId with the API,
+         * then this is passed as the parameter for the called getJSONResult to get the JSON Body
+         */
         String JSONResult =
                 getJSONResult("https://imdb-api.com/en/API/UserRatings/"+ API_KEY +
                         "/" + movieId);
@@ -161,14 +196,18 @@ public class RatingsActivity extends AppCompatActivity
 
         try
         {
+            // Getting the totalRating property of the JSONObject
             jsonObject = new JSONObject(JSONResult);
             rating = jsonObject.getString("totalRating");
 
-            System.out.println(rating);
-
+            /* Concatenating NF that means Not Found, if the rating is blank or null this API
+             * returns the String null if a property is null
+             */
             if (rating.equals("") || rating.equals("null"))
 
-                rating += "(NF)";
+                rating += "NF";
+
+            rating += ")";
 
             return rating;
         }
@@ -181,8 +220,9 @@ public class RatingsActivity extends AppCompatActivity
     }
 
     /**
+     * This Method return a properly Constructed JSON Body based on an API that is to be called
      *
-     * @param query
+     * @param query The API that we want to query
      *
      * @return The JSON Body is Returned
      */
@@ -193,14 +233,22 @@ public class RatingsActivity extends AppCompatActivity
         {
             URL url = new URL(query);
 
-            URLConnection conn = url.openConnection();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            // Attempting to connect to the URl with the openConnection Method
+            URLConnection urlConnection = url.openConnection();
+
+            /* Getting the Input Stream from the Socket with the getInputStream Method and then
+             * setting it as a Parameter for the Constructor of a new InputStreamReader that is used
+             * to decode bytes from the Input Stream to Characters that can be read by the BufferedReader.
+             */
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+            // Appending each Line from the bufferedReader to a StringBuilder construct the JSON Body
             String line;
-            while ((line = rd.readLine()) != null)
+            while ((line = bufferedReader.readLine()) != null)
 
                 result.append(line);
 
-            rd.close();
+            bufferedReader.close();
         }
         catch (Exception e)
         {

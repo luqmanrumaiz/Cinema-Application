@@ -34,19 +34,16 @@ public class SearchActivity extends AppCompatActivity {
 
     public void searchMovie(View view)
     {
+        String searchData = searchInputLayout.getEditText().getText().toString().trim();
+
         // Getting the Data from the Database and Adding it to a List to a list
-        Cursor data = databaseHelper.getData();
+        Cursor data = databaseHelper.getSearchedData(searchData);
         movieTitles = new ArrayList<>();
 
         // With the Cursor we can easily move through each row through the Data from the Table
         while(data.moveToNext())
         {
-            String searchData = searchInputLayout.getEditText().getText().toString().trim();
-            if (data.getString(1).contains(searchData) ||
-                data.getString(4).contains(searchData) ||
-                data.getString(5).contains(searchData))
-
-                movieTitles.add(data.getString(1));
+            movieTitles.add(data.getString(1));
         }
 
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movieTitles);
