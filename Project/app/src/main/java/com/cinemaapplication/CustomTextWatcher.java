@@ -10,16 +10,24 @@ import java.util.Calendar;
 
 public class CustomTextWatcher implements TextWatcher
 {
-    private View view;
-    private TextInputLayout inputLayout;
-    private RegisterActivity registerActivity;
+    private final TextInputLayout inputLayout;
+    private final RegisterActivity registerActivity;
+    private final EditInfoActivity editInfoActivity;
     private boolean[] errors;
 
-    public CustomTextWatcher(View view, TextInputLayout inputLayout, RegisterActivity registerActivity)
+    public CustomTextWatcher(TextInputLayout inputLayout, RegisterActivity registerActivity)
     {
-        this.view = view;
         this.inputLayout = inputLayout;
         this.registerActivity = registerActivity;
+        editInfoActivity = null;
+        errors = new boolean[]{false, false, false};
+    }
+
+    public CustomTextWatcher(TextInputLayout inputLayout, EditInfoActivity editInfoActivity)
+    {
+        this.inputLayout = inputLayout;
+        this.editInfoActivity = editInfoActivity;
+        registerActivity = null;
         errors = new boolean[]{false, false, false};
     }
 
@@ -29,7 +37,13 @@ public class CustomTextWatcher implements TextWatcher
         if (s.toString().equals(""))
         {
             inputLayout.setError("You cannot leave the field blank !!!");
-            registerActivity.setError(true);
+            if (registerActivity != null)
+
+                registerActivity.setError(true);
+
+            else if (editInfoActivity != null)
+
+                editInfoActivity.setError(true);
         }
         else
         {
@@ -70,7 +84,6 @@ public class CustomTextWatcher implements TextWatcher
                     }
                     System.out.println(errors[0]);
                 }
-
             }
 
             else if (inputLayout.getId() == R.id.yearTextField && chars.length > 0)
@@ -91,21 +104,45 @@ public class CustomTextWatcher implements TextWatcher
                 if (error && errorCount == 0)
                 {
                     inputLayout.setError("You cannot enter a ',' at the end or start");
-                    registerActivity.setError(true);
+
+                    if (registerActivity != null)
+
+                        registerActivity.setError(true);
+
+                    else if (editInfoActivity != null)
+
+                        editInfoActivity.setError(true);
+
                     errorOccurred = true;
                     break;
                 }
                 else if (error && errorCount == 1)
                 {
                     inputLayout.setError("Year has to be less than Today's Date and Greater than 1855");
-                    registerActivity.setError(true);
+
+                    if (registerActivity != null)
+
+                        registerActivity.setError(true);
+
+                    else if (editInfoActivity != null)
+
+                        editInfoActivity.setError(true);
+
                     errorOccurred = true;
                     break;
                 }
                 else if (error && errorCount == 2)
                 {
                     inputLayout.setError("Rating must be from 0-10");
-                    registerActivity.setError(true);
+
+                    if (registerActivity != null)
+
+                        registerActivity.setError(true);
+
+                    else if (editInfoActivity != null)
+
+                        editInfoActivity.setError(true);
+
                     errorOccurred = true;
                     break;
                 }
@@ -115,7 +152,14 @@ public class CustomTextWatcher implements TextWatcher
             if (! errorOccurred)
             {
                 inputLayout.setErrorEnabled(false);
-                registerActivity.setError(false);
+
+                if (registerActivity != null)
+
+                    registerActivity.setError(false);
+
+                else if (editInfoActivity != null)
+
+                    editInfoActivity.setError(false);
             }
         }
     }
