@@ -14,8 +14,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterActivity extends AppCompatActivity
 {
-    private DatabaseHelper databaseHelper;
-
     private TextInputLayout titleInputLayout;
     private TextInputLayout dateInputLayout;
     private TextInputLayout directorInputLayout;
@@ -68,11 +66,11 @@ public class RegisterActivity extends AppCompatActivity
     {
         if (error)
         {
-            Toast.makeText(this, "Please Resolve all Errors and then Register", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Resolve all Errors and then Register !!!", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            databaseHelper = new DatabaseHelper(this);
+            DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
             // Getting all String and Integer Values from the TextFields
             String title = titleInputLayout.getEditText().getText().toString().trim();
@@ -80,16 +78,27 @@ public class RegisterActivity extends AppCompatActivity
             String director = directorInputLayout.getEditText().getText().toString().trim();
             String actorActress = actorActressInputLayout.getEditText().getText().toString().trim();
             String review = reviewInputLayout.getEditText().getText().toString().trim();
-            rating = Integer.parseInt(ratingInputLayout.getEditText().getText().toString().trim());
+            String ratingString = ratingInputLayout.getEditText().getText().toString().trim();
 
-            databaseHelper.addData(new Movie(title, year, director, actorActress, rating, review, false));
+            System.out.println(rating);
 
-            titleInputLayout.setPlaceholderText("");
-            dateInputLayout.setPlaceholderText("");
-            directorInputLayout.setPlaceholderText("");
-            actorActressInputLayout.setPlaceholderText("");
-            reviewInputLayout.setPlaceholderText("");
-            ratingInputLayout.setPlaceholderText("");
+            if (title.equals("") || year.equals("") || director.equals("") || actorActress.equals("") ||
+                review.equals("") || ratingString.equals("") )
+
+                Toast.makeText(this, "Please Enter all Fields !!!", Toast.LENGTH_SHORT).show();
+
+            else
+            {
+                rating = Integer.parseInt(ratingString);
+                databaseHelper.addData(new Movie(title, year, director, actorActress, rating, review, false));
+
+                titleInputLayout.setPlaceholderText("");
+                dateInputLayout.setPlaceholderText("");
+                directorInputLayout.setPlaceholderText("");
+                actorActressInputLayout.setPlaceholderText("");
+                reviewInputLayout.setPlaceholderText("");
+                ratingInputLayout.setPlaceholderText("");
+            }
         }
     }
 

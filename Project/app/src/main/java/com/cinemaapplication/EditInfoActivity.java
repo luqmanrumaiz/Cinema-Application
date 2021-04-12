@@ -91,6 +91,7 @@ public class EditInfoActivity extends AppCompatActivity
         }
         else
         {
+
             // Getting all String and Integer Values from the TextFields
             String title = titleInputLayout.getEditText().getText().toString().trim();
             String year = dateInputLayout.getEditText().getText().toString().trim();
@@ -99,7 +100,15 @@ public class EditInfoActivity extends AppCompatActivity
             String review = reviewInputLayout.getEditText().getText().toString().trim();
             int rating = (int) Math.round(ratingRatingBar.getRating());
 
-            databaseHelper.editMovie(movieId, new Movie(title, year, director, actorActress, rating, review, favoriteSwitch.isChecked()));
+
+            if (title.equals("") || year.equals("") || director.equals("") || actorActress.equals("") ||
+                    review.equals(""))
+
+                Toast.makeText(this, "Please Enter all Fields !!!", Toast.LENGTH_SHORT).show();
+
+            else databaseHelper.editMovie(movieId, new Movie(title, year, director, actorActress,
+                    rating, review, favoriteSwitch.isChecked()));
+
         }
     }
 

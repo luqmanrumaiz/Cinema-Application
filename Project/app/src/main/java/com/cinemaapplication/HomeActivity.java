@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity
         Intent intent = null;
 
         /* This if else condition checks whether the Id of the View Component is the same
-         * as the Id of all 4 Buttons that indicate the Game Mode to navigate to.
+         * as the Id of all 6 Buttons that indicate the Cinema Option to navigate to.
          */
 
         if (view.getId() == R.id.homeRegisterButton)
@@ -53,6 +53,5 @@ public class HomeActivity extends AppCompatActivity
             intent = new Intent(this, RatingsActivity.class);
 
         startActivity(intent);
-
     }
 }

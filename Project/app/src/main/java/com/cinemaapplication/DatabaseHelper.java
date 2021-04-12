@@ -20,8 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final String COL6 = "rating";
     private static final String COL7 = "review";
     private static final String COL8 = "favorite";
-
-    private Context context;
+    private final Context context;
 
     public DatabaseHelper(Context context)
     {
@@ -29,10 +28,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
         this.context = context;
     }
 
+    /**
+     * This Overridden Method is called when a new DatabaseHelper is made, and what it does is it
+     * creates a new Table with the Constants that we specified as the Table Name and its Columns
+     *
+     * @param db The SQLite Database
+     */
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String createTable = "CREATE TABLE " + TABLE_NAME
+        /* For the Primary Key AUTOINCREMENT for the First Column to add 1 to the Primary Key Value
+         * as a Row is added. The execSQL Method simply executes this query on the Database
+         */
+        db.execSQL(
+                "CREATE TABLE " + TABLE_NAME
                 + "("
                 + COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL2 + " TEXT,"
@@ -42,9 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 + COL6 + " INTEGER,"
                 + COL7 + " TEXT,"
                 + COL8 + " INTEGER" +
-                ")";
-
-        db.execSQL(createTable);
+                ")");
     }
 
     @Override
@@ -54,10 +61,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
         onCreate(db);
     }
 
+    /**
+     * This Method is used add a Movie to the Database
+     *
+     * @param movieToAdd The Movie Object that contains the Details to be added to the Database
+     */
     public void addData(Movie movieToAdd)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
-
+        /* Creating a DatabaseHelper Instance to access the getData Method in order to get the
+         * Title (Index 1 in terms of Columns) of all the saved Movies in the Database and to make
+         * sure that the Title of the Movie to be registered isn't equals to any of the existing movies
+         */
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         Cursor c = databaseHelper.getData();
 
@@ -70,6 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             listLabels.add(c.getString(1));
         }
 
+        // Error Message if the Title of the Movie to Add Already is found
         if (listLabels.contains(movieToAdd.getTitle()))
         {
             Toast.makeText(context,"Movie Already has been Registered", Toast.LENGTH_SHORT).show();
@@ -82,8 +97,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
                 favorite = 1;
 
-
-            db.execSQL("INSERT INTO " + TABLE_NAME +
+            // e execSQL Method simply executes this query on the Database
+            this.getWritableDatabase().execSQL(
+                    "INSERT INTO " + TABLE_NAME +
                     " (title, year, director, actor_actress, rating, review, favorite)" +
                     " values('"
                     + movieToAdd.getTitle() + "', '" + movieToAdd.getYear() + "', '"
@@ -95,48 +111,73 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
     }
 
+    /**
+     * This Method returns a Cursor containing Rows for all Columns in the Database
+     *
+     * @return Cursor containing Data for All Movies
+     */
     public Cursor getData()
     {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME;
-        return db.rawQuery(query, null);
+        return this.getWritableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
+    /**
+     * This Method returns a Cursor containing Rows for all Columns in the Database that are similar
+     * to the Data that is to be Filtered
+     *
+     * @param filterData The Data to be Filtered
+     *
+     * @return Cursor containing data of Filtered Movies
+     */
     public Cursor getSearchedData(String filterData)
     {
         filterData = filterData.toUpperCase();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME +
+        return this.getWritableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_NAME +
                 " WHERE upper(" + COL2 + ") LIKE '%" + filterData + "%'" +
                 " OR upper(" + COL4 + ") LIKE '%" + filterData + "%'" +
-                " OR upper(" + COL5 + ") LIKE '%" + filterData + "%'";
-
-        return db.rawQuery(query, null);
+                " OR upper(" + COL5 + ") LIKE '%" + filterData + "%'", null);
     }
 
+    /**
+     * This Method replaces the Integer that is used as a Boolean of the Favorite Column for a Row
+     * based on its ID and Title
+     *
+     * @param id The ID of the Movie
+     * @param title The Title of the Movie
+     * @param favorite Integer that determines if the Movie is favorite or not
+     */
     public void makeFavorite(int id, String title, int favorite)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL("UPDATE " + TABLE_NAME +
+        // e execSQL Method simply executes this query on the Database
+        db.execSQL(
+                "UPDATE " + TABLE_NAME +
                 " SET " + COL8 + " = " + favorite +
-                " WHERE " + COL2 + " = '" + title + "'");
+                " WHERE " + COL2 + " = '" + title + "' AND" +
+                COL1 + " = " + id);
     }
 
-
-
+    /**
+     * This Method is used to Replace an entire Row with the Values given from a Movie Object
+     *
+     * @param id The ID of the Movie we want to Replace
+     * @param movie The Movie Object that we want to get Values from
+     */
     public void editMovie(int id, Movie movie)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
-
+        // Since SQLite does not support Booleans, an Integer is used with 0 as false and 1 as true
         int favorite = 0;
 
         if (movie.isFavorite())
 
             favorite = 1;
 
-        db.execSQL("REPLACE INTO " + TABLE_NAME +
+        // e execSQL Method simply executes this query on the Database
+        this.getWritableDatabase().execSQL(
+                "REPLACE INTO " + TABLE_NAME +
                 " (movieId, title, year, director, actor_actress, rating, review, favorite)" +
                 " Values(" + id + ", '" + movie.getTitle() + "', '" + movie.getYear() + "', '" + movie.getDirector() +
                 "', '" + movie.getActorActress() + "', " + movie.getRating() + ", '" + movie.getReview() +

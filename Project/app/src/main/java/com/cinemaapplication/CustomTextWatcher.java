@@ -78,11 +78,8 @@ public class CustomTextWatcher implements TextWatcher
                     }
 
                     if (! commaError)
-                    {
-                        System.out.println("IO");
+
                         errors[0] = false;
-                    }
-                    System.out.println(errors[0]);
                 }
             }
 
