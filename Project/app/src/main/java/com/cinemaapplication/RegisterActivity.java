@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterActivity extends AppCompatActivity
@@ -65,9 +66,12 @@ public class RegisterActivity extends AppCompatActivity
     public void registerMovie(View view)
     {
         if (error)
-        {
-            Toast.makeText(this, "Please Resolve all Errors and then Register !!!", Toast.LENGTH_SHORT).show();
-        }
+
+            Snackbar.make(getCurrentFocus(), "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
+                    .setTextColor(getResources().getColor(R.color.grey_black))
+                    .show();
+
         else
         {
             DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -85,7 +89,10 @@ public class RegisterActivity extends AppCompatActivity
             if (title.equals("") || year.equals("") || director.equals("") || actorActress.equals("") ||
                 review.equals("") || ratingString.equals("") )
 
-                Toast.makeText(this, "Please Enter all Fields !!!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(getCurrentFocus(), "Please Enter all Fields !!!",Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
+                        .setTextColor(getResources().getColor(R.color.grey_black))
+                        .show();
 
             else
             {

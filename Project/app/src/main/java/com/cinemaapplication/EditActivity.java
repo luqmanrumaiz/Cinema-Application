@@ -71,7 +71,6 @@ public class EditActivity extends AppCompatActivity
             intent.putExtra("rating", registeredMovies.get(position).getRating());
             intent.putExtra("review", registeredMovies.get(position).getReview());
             intent.putExtra("favorite", registeredMovies.get(position).isFavorite());
-            intent.putExtra("movieId", (position + 1));
 
             startActivity(intent);
         });

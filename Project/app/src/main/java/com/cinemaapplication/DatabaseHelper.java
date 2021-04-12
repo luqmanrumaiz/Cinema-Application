@@ -118,7 +118,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
      */
     public Cursor getData()
     {
-        return this.getWritableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return this.getWritableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_NAME +
+                    " ORDER BY " + COL2 + " ASC", null);
     }
 
     /**

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -86,9 +87,12 @@ public class EditInfoActivity extends AppCompatActivity
     public void editMovie(View view)
     {
         if (error)
-        {
-            Toast.makeText(this, "Please Resolve all Errors and then Register", Toast.LENGTH_SHORT).show();
-        }
+
+            Snackbar.make(getCurrentFocus(), "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
+                    .setTextColor(getResources().getColor(R.color.grey_black))
+                    .show();
+
         else
         {
             // Getting all String and Integer Values from the TextFields
@@ -99,11 +103,14 @@ public class EditInfoActivity extends AppCompatActivity
             String review = reviewInputLayout.getEditText().getText().toString().trim();
             int rating = (int) Math.round(ratingRatingBar.getRating());
 
-
+            // If any of the Values from TextFields are empty an Error Message is shown
             if (title.equals("") || year.equals("") || director.equals("") || actorActress.equals("") ||
                     review.equals(""))
 
-                Toast.makeText(this, "Please Enter all Fields !!!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(getCurrentFocus(), "Fill all Empty TextFields !!!",Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
+                        .setTextColor(getResources().getColor(R.color.grey_black))
+                        .show();
 
             else databaseHelper.editMovie(movieId, new Movie(title, year, director, actorActress,
                     rating, review, favoriteSwitch.isChecked()));
