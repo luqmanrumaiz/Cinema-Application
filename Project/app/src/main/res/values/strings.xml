@@ -31,4 +31,8 @@
 
     <!--Strings for the Search Page TextBoxes-->
     <string name="ratings_movie_button_label">Find Rating</string>
+
+    <!--Strings for the Search Page TextBoxes-->
+    <string name="movie_poster_image_view_content_description">Movie Poster</string>
+
 </resources>
