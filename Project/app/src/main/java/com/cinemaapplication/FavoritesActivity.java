@@ -27,7 +27,7 @@ public class FavoritesActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
-        listView = (ListView) findViewById(R.id.favoriteMoviesListView);
+        listView = findViewById(R.id.favoriteMoviesListView);
         databaseHelper = new DatabaseHelper(this);
 
         populateListView();
@@ -43,6 +43,9 @@ public class FavoritesActivity extends AppCompatActivity
         // With the Cursor we can easily move through each row through the Data from the Table
         while(data.moveToNext())
         {
+            /* The 8th Column or the 7th Index of this Cursor Data contains an Integer representing
+             * the Favorite Boolean so if it is 1 it is favorite and should be added to the Movie
+             * Titles */
             if (data.getInt(7) == 1)
             {
                 // Titles exist in the Second Column at index 1
@@ -77,7 +80,7 @@ public class FavoritesActivity extends AppCompatActivity
 
     /**
      * This Method saves the Booleans in the favorites ArrayList which correspond to if a Movie
-     * is a favorite or not in to the SQLLite Database
+     * is a favorite or not in to the SQLite Database
      *
      * @param view The Button View
      */
@@ -86,7 +89,7 @@ public class FavoritesActivity extends AppCompatActivity
         int count = 0;
         for (Boolean favorite : favorites)
         {
-            // SQLLite does not support Booleans therefore it is represented as 1 for true and 0 for false
+            // SQLite does not support Booleans therefore it is represented as 1 for true and 0 for false
             if (favorite)
 
                 databaseHelper.makeFavorite(movieTitles.get(count), 1);
@@ -96,6 +99,7 @@ public class FavoritesActivity extends AppCompatActivity
             count ++;
         }
 
+        // If no favorites are found an Error message is shown
         if (favorites.size() > 0)
 
             Snackbar.make(view, "Saved !",Snackbar.LENGTH_SHORT)

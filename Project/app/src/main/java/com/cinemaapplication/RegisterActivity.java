@@ -17,13 +17,15 @@ public class RegisterActivity extends AppCompatActivity
     private TextInputLayout reviewInputLayout;
     private TextInputLayout ratingInputLayout;
     private int rating;
-    private boolean error;
+    private boolean[] errors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        errors = new boolean[]{false, false, false, false, false, false};
 
         // All Material TextFields
         titleInputLayout = findViewById(R.id.titleTextField);
@@ -60,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity
      */
     public void registerMovie(View view)
     {
-        if (error)
+        if (isError())
 
             Snackbar.make(view, "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
@@ -91,29 +93,28 @@ public class RegisterActivity extends AppCompatActivity
 
             else
             {
-                System.out.println(error);
-
                 rating = Integer.parseInt(ratingString);
                 databaseHelper.addData(new Movie(title, year, director, actorActress, rating,
                         review, false), view);
 
-                titleInputLayout.setPlaceholderText("");
-                dateInputLayout.setPlaceholderText("");
-                directorInputLayout.setPlaceholderText("");
-                actorActressInputLayout.setPlaceholderText("");
-                reviewInputLayout.setPlaceholderText("");
-                ratingInputLayout.setPlaceholderText("");
+
             }
         }
     }
 
-    public void setError(boolean error)
+    public boolean isError()
     {
-        this.error = error;
+        for (boolean error : errors)
+        {
+            if (error)
+
+                return true;
+        }
+        return false;
     }
 
-    public boolean getError()
+    public void setError(boolean error, int index)
     {
-         return error;
+        this.errors[index] = error;
     }
 }

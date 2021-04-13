@@ -1,5 +1,6 @@
 package com.cinemaapplication;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -33,7 +34,7 @@ public class CustomTextWatcher implements TextWatcher
         this.inputLayout = inputLayout;
         this.registerActivity = registerActivity;
         editInfoActivity = null;
-        errors = new boolean[]{false, false, false};
+        errors = new boolean[]{false, false, false, false};
     }
 
     public CustomTextWatcher(TextInputLayout inputLayout, EditInfoActivity editInfoActivity)
@@ -46,17 +47,35 @@ public class CustomTextWatcher implements TextWatcher
 
     public void onTextChanged(CharSequence s,int start, int before, int count)
     {
+        int index = 0;
+
+        if (inputLayout.getId() == R.id.yearTextField)
+
+            index = 1;
+
+        else if (inputLayout.getId() == R.id.actorAndActressTextField)
+
+            index = 2;
+
+        else if (inputLayout.getId() == R.id.ratingTextField)
+
+            index = 3;
+
+        else if (inputLayout.getId() == R.id.reviewTextField)
+
+            index = 4;
+
         // First Validation is to check if the TextField is empty
         if (s.toString().equals(""))
         {
             inputLayout.setError("You cannot leave the field blank !!!");
             if (registerActivity != null)
 
-                registerActivity.setError(true);
+                registerActivity.setError(true, index);
 
             else if (editInfoActivity != null)
 
-                editInfoActivity.setError(true);
+                editInfoActivity.setError(true, index);
         }
         else
         {
@@ -110,7 +129,6 @@ public class CustomTextWatcher implements TextWatcher
                 int rating = Integer.parseInt(text);
                 errors[2] = rating > 10 || rating < 1;
             }
-
             /* Now after analyzing all Errors we loop through all the booleans in errors and
              * see if we have made an Error, If so we set a Error Message for the TextField and
              * also set the error Property of the Activity to true to make sure that the user
@@ -126,11 +144,11 @@ public class CustomTextWatcher implements TextWatcher
 
                     if (registerActivity != null)
 
-                        registerActivity.setError(true);
+                        registerActivity.setError(true, index);
 
                     else if (editInfoActivity != null)
 
-                        editInfoActivity.setError(true);
+                        editInfoActivity.setError(true, index);
 
                     errorOccurred = true;
                     break;
@@ -141,11 +159,11 @@ public class CustomTextWatcher implements TextWatcher
 
                     if (registerActivity != null)
 
-                        registerActivity.setError(true);
+                        registerActivity.setError(true, index);
 
                     else if (editInfoActivity != null)
 
-                        editInfoActivity.setError(true);
+                        editInfoActivity.setError(true, index);
 
                     errorOccurred = true;
                     break;
@@ -155,14 +173,11 @@ public class CustomTextWatcher implements TextWatcher
                     if (registerActivity != null)
                     {
                         inputLayout.setError("Rating must be from 0-10");
-                        registerActivity.setError(true);
+                        registerActivity.setError(true, index);
+
+                        errorOccurred = true;
+                        break;
                     }
-                    else if (editInfoActivity != null)
-
-                        editInfoActivity.setError(true);
-
-                    errorOccurred = true;
-                    break;
                 }
                 errorCount ++;
             }
@@ -173,15 +188,16 @@ public class CustomTextWatcher implements TextWatcher
 
             if (! errorOccurred)
             {
+
                 inputLayout.setErrorEnabled(false);
 
                 if (registerActivity != null)
 
-                    registerActivity.setError(false);
+                    registerActivity.setError(false, index);
 
                 else if (editInfoActivity != null)
 
-                    editInfoActivity.setError(false);
+                    editInfoActivity.setError(false, index);
             }
         }
     }

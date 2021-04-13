@@ -28,7 +28,8 @@ public class EditActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        listView = (ListView) findViewById(R.id.editRegisteredMoviesListView);
+
+        listView = findViewById(R.id.editRegisteredMoviesListView);
         databaseHelper = new DatabaseHelper(this);
 
         populateListView();

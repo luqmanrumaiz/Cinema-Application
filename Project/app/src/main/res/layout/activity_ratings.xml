@@ -23,18 +23,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/grey_black"
+        android:layout_marginTop="24dp"
+        android:onClick="findRatings"
         android:padding="20dp"
         android:text="@string/ratings_movie_button_label"
         android:textColor="@color/white"
-        android:onClick="findRatings"
         app:cornerRadius="20dp"
+        app:backgroundTint="@color/grey_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteMoviesListView"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingsMoviesListView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

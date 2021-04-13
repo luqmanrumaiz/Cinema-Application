@@ -2,6 +2,7 @@ package com.cinemaapplication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class DisplayActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
+
         listView = findViewById(R.id.registeredMoviesListView);
         databaseHelper = new DatabaseHelper(this);
 

@@ -3,7 +3,6 @@ package com.cinemaapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private ArrayList<String> movieTitles;
-    private DatabaseHelper databaseHelper;
     private ListView listView;
     TextInputLayout searchInputLayout;
 
@@ -27,26 +24,34 @@ public class SearchActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        listView = (ListView) findViewById(R.id.searchMoviesListView);
-        databaseHelper = new DatabaseHelper(this);
+        listView = findViewById(R.id.searchMoviesListView);
+
         searchInputLayout = findViewById(R.id.searchTextField);
     }
 
     public void searchMovie(View view)
     {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         String searchData = searchInputLayout.getEditText().getText().toString().trim();
 
         // Getting the Data from the Database and Adding it to a List to a list
         Cursor data = databaseHelper.getSearchedData(searchData);
-        movieTitles = new ArrayList<>();
+        ArrayList<String> movieInformation = new ArrayList<>();
 
         // With the Cursor we can easily move through each row through the Data from the Table
         while(data.moveToNext())
         {
-            movieTitles.add(data.getString(1));
+            movieInformation.add(
+                            "Title:  " + data.getString(1) + "\n" +
+                            "Year:  " + data.getString(2) + "\n" +
+                            "Director:  " + data.getString(3) + "\n" +
+                            "Actor/Actress:  " + data.getString(4) + "\n" +
+                            "Rating:  " + data.getString(5) + "\n" +
+                            "Review:  " + data.getString(6) + "\n" +
+                            "Favorite:  " + (Integer.parseInt(data.getString(7)) == 1));
         }
 
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movieTitles);
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movieInformation);
         listView.setAdapter(adapter);
     }
 }

@@ -26,7 +26,7 @@ public class EditInfoActivity extends AppCompatActivity
     private TextInputLayout reviewInputLayout;
     private RatingBar ratingRatingBar;
     private SwitchMaterial favoriteSwitch;
-    private boolean error;
+    private boolean[] errors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,8 +34,11 @@ public class EditInfoActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_info);
 
+        errors = new boolean[]{false, false, false, false, false, false};
+
         Intent intent = getIntent();
 
+        // Getting the Details of the Movie to Edit from the Intent
         movie = new Movie(intent.getStringExtra("title"), intent.getStringExtra("year"),
                 intent.getStringExtra("director"), intent.getStringExtra("actorActress"),
                 intent.getIntExtra("rating", 0), intent.getStringExtra("review"),
@@ -86,7 +89,7 @@ public class EditInfoActivity extends AppCompatActivity
      */
     public void editMovie(View view)
     {
-        if (error)
+        if (isError())
 
             Snackbar.make(view, "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
@@ -132,8 +135,19 @@ public class EditInfoActivity extends AppCompatActivity
         finish();
     }
 
-    public void setError(boolean error)
+    public boolean isError()
     {
-        this.error = error;
+        for (boolean error : errors)
+        {
+            if (error)
+
+                return true;
+        }
+        return false;
+    }
+
+    public void setError(boolean error, int index)
+    {
+        this.errors[index] = error;
     }
 }
