@@ -11,6 +11,8 @@ import android.widget.CheckedTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class FavoritesActivity extends AppCompatActivity
@@ -63,6 +65,14 @@ public class FavoritesActivity extends AppCompatActivity
             CheckedTextView checkedTextView = (CheckedTextView) view;
             favorites.set(position, checkedTextView.isChecked());
         });
+
+        // For Loop that Updates the Checkboxes based on if the Movie is favorite or not
+        int count = 0;
+        for (Boolean favorite : favorites)
+        {
+            listView.setItemChecked(count, favorite);
+            count ++;
+        }
     }
 
     /**
@@ -79,11 +89,25 @@ public class FavoritesActivity extends AppCompatActivity
             // SQLLite does not support Booleans therefore it is represented as 1 for true and 0 for false
             if (favorite)
 
-                databaseHelper.makeFavorite(movieTitles.get(count), 0);
+                databaseHelper.makeFavorite(movieTitles.get(count), 1);
 
-            else databaseHelper.makeFavorite(movieTitles.get(count), 1);
+            else databaseHelper.makeFavorite(movieTitles.get(count), 0);
 
             count ++;
         }
+
+        if (favorites.size() > 0)
+
+            Snackbar.make(view, "Saved !",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.yellow))
+                    .setTextColor(getResources().getColor(R.color.black))
+                    .show();
+
+        else Snackbar.make(view, "There are no Movies !",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.yellow))
+                    .setTextColor(getResources().getColor(R.color.black))
+                    .show();
+
+        populateListView();
     }
 }

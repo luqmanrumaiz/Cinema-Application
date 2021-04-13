@@ -108,23 +108,26 @@
 
         </LinearLayout>
 
+
         <RatingBar
             android:id="@+id/ratingBar1"
+            style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:max="10"
             android:backgroundTint="@color/light_grey"
+            android:isIndicator="false"
+            android:max="10"
+            android:numStars="10"
             android:progressBackgroundTint="@color/light_grey"
-            android:secondaryProgressTint="@color/light_grey"
             android:progressTint="@color/yellow"
             android:scaleX=".7"
             android:scaleY=".7"
+            android:secondaryProgressTint="@color/light_grey"
             app:layout_constraintBottom_toTopOf="@+id/favoriteSwitch"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/favoriteSwitch"

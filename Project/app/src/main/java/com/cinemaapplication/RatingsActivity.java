@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,17 +33,17 @@ public class RatingsActivity extends AppCompatActivity
     private ListView listView;
     private ArrayList<String> foundMovies;
     private ArrayList<String> foundMovieImageURls;
-    private AlertDialog alertDialog;
-    private final String API_KEY = "k_fesodmof" ;
+    private Dialog alertDialog;
+    private final String API_KEY = "k_i41mf3oz" ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ratings);
-        listView = (ListView) findViewById(R.id.ratingsMoviesListView);
-        databaseHelper = new DatabaseHelper(this);
+        listView = findViewById(R.id.ratingsMoviesListView);
 
+        databaseHelper = new DatabaseHelper(this);
         populateListView();
     }
 
@@ -133,6 +134,9 @@ public class RatingsActivity extends AppCompatActivity
                 // The JSON Array that contains
                 JSONArray movieResults = jsonObject.getJSONArray("results");
 
+                /* Running the Dialog run on the MainThread so we use runOnUiThread to make sure
+                 * the Dialog is not run on Worker Threads and comes in the Main Screen
+                 */
                 RatingsActivity.this.runOnUiThread(this::showDialogWithProgressBar);
 
                 /* Iterating through all the Movies from the movieResults JSON Array and storing
@@ -146,7 +150,7 @@ public class RatingsActivity extends AppCompatActivity
                             getMovieRating(movie.getString("id")));
 
                     foundMovieImageURls.add(movie.getString("image"));
-                    break;
+
                 }
 
                 // If not Movies Titles or Image URLs were found an Error Message is shown
@@ -203,10 +207,16 @@ public class RatingsActivity extends AppCompatActivity
             /* Concatenating NF that means Not Found, if the rating is blank or null this API
              * returns the String null if a property is null
              */
-            if (rating.equals("") || rating.equals("null"))
+
+            if (rating.equals(""))
 
                 rating += "NF";
 
+            else if (rating.equals("null"))
+            {
+                rating = "";
+                rating += "NF";
+            }
             rating += ")";
 
             return rating;

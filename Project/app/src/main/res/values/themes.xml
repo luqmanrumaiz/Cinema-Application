@@ -10,6 +10,5 @@
 
         <item name="android:checkMarkTint">@color/yellow</item>
         <item name="colorAccent">@color/yellow</item>
-
     </style>
 </resources>

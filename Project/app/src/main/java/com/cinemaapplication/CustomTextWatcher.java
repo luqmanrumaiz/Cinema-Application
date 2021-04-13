@@ -2,18 +2,31 @@ package com.cinemaapplication;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
+
+/*
+ * This Class is used to make Validating User Inputs easier, by implementing the TextWatcher Class
+ * the need to set a new TextWatcher for each specific Validation is too much work, this simply
+ * accepts parameters of the Activity (Register and Edit Activities have some different inputs) and
+ * also the TextInputLayout to get the Input and set Errors
+ *
+ * https://stackoverflow.com/questions/5702771/how-to-use-single-textwatcher-for-multiple-edittexts\
+ */
 
 public class CustomTextWatcher implements TextWatcher
 {
     private final TextInputLayout inputLayout;
     private final RegisterActivity registerActivity;
     private final EditInfoActivity editInfoActivity;
-    private boolean[] errors;
+    private boolean[] errors;   // This Array Contains 3 Booleans, each for each Validation
+
+    /* The Rating Input For the Edit Activity uses a RatingBar instead of a TextField so we create
+     * 02 Constructors for each Activity, and it can be differentiated based on if an Activity is
+     * null or not
+     */
 
     public CustomTextWatcher(TextInputLayout inputLayout, RegisterActivity registerActivity)
     {
@@ -59,7 +72,9 @@ public class CustomTextWatcher implements TextWatcher
             {
                 errors[0] = chars[0] == ',' || chars[chars.length - 1] == ',';
 
-
+                /* Third Validation is to make sure that no empty Actor/Actress is left between
+                 * two commas
+                 */
                 if (! errors[0])
                 {
                     // Iterating Through each Letter to see if the letter before is a ',' and the letter after
@@ -77,23 +92,30 @@ public class CustomTextWatcher implements TextWatcher
                         letterCount ++;
                     }
 
+                    // If Third Validation is passed then error is set to false
                     if (! commaError)
 
                         errors[0] = false;
                 }
             }
-
+            // The Fourth Validation is to make sure that the year is not <1855 or > The Current Year
             else if (inputLayout.getId() == R.id.yearTextField && chars.length > 0)
             {
                 int date = Integer.parseInt(text);
                 errors[1] = date < 1855 || date > Calendar.getInstance().get(Calendar.YEAR);
             }
+            // The Fourth Validation is to make sure that the rating is not <1 or > 10
             else if (inputLayout.getId() == R.id.ratingTextField && chars.length > 0)
             {
                 int rating = Integer.parseInt(text);
                 errors[2] = rating > 10 || rating < 1;
             }
 
+            /* Now after analyzing all Errors we loop through all the booleans in errors and
+             * see if we have made an Error, If so we set a Error Message for the TextField and
+             * also set the error Property of the Activity to true to make sure that the user
+             * does not register or edit if an Error is existent.
+             */
             int errorCount = 0;
             boolean errorOccurred = false;
             for (boolean error : errors)
@@ -130,12 +152,11 @@ public class CustomTextWatcher implements TextWatcher
                 }
                 else if (error && errorCount == 2)
                 {
-                    inputLayout.setError("Rating must be from 0-10");
-
                     if (registerActivity != null)
-
+                    {
+                        inputLayout.setError("Rating must be from 0-10");
                         registerActivity.setError(true);
-
+                    }
                     else if (editInfoActivity != null)
 
                         editInfoActivity.setError(true);
@@ -145,6 +166,10 @@ public class CustomTextWatcher implements TextWatcher
                 }
                 errorCount ++;
             }
+
+            /* Removing all Errors from the TextField and the setting the error property of the
+             * Activity to false if there is not error that has occurred
+             */
 
             if (! errorOccurred)
             {

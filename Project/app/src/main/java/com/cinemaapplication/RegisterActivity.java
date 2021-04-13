@@ -3,12 +3,7 @@ package com.cinemaapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -21,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity
     private TextInputLayout actorActressInputLayout;
     private TextInputLayout reviewInputLayout;
     private TextInputLayout ratingInputLayout;
-    int rating;
+    private int rating;
     private boolean error;
 
     @Override
@@ -33,28 +28,28 @@ public class RegisterActivity extends AppCompatActivity
         // All Material TextFields
         titleInputLayout = findViewById(R.id.titleTextField);
         titleInputLayout.getEditText().addTextChangedListener(
-                new CustomTextWatcher(titleInputLayout, this));
+                new CustomTextWatcher(titleInputLayout, RegisterActivity.this));
 
         dateInputLayout = findViewById(R.id.yearTextField);
         dateInputLayout.getEditText().addTextChangedListener(
-                new CustomTextWatcher(dateInputLayout, this));
+                new CustomTextWatcher(dateInputLayout, RegisterActivity.this));
 
 
         directorInputLayout = findViewById(R.id.directorTextField);
         directorInputLayout.getEditText().addTextChangedListener(
-                new CustomTextWatcher(directorInputLayout, this));
+                new CustomTextWatcher(directorInputLayout, RegisterActivity.this));
 
         actorActressInputLayout = findViewById(R.id.actorAndActressTextField);
         actorActressInputLayout.getEditText().addTextChangedListener(
-                new CustomTextWatcher(actorActressInputLayout, this));
+                new CustomTextWatcher(actorActressInputLayout, RegisterActivity.this));
 
         reviewInputLayout = findViewById(R.id.reviewTextField);
         reviewInputLayout.getEditText().addTextChangedListener(
-                new CustomTextWatcher(reviewInputLayout, this));
+                new CustomTextWatcher(reviewInputLayout, RegisterActivity.this));
 
         ratingInputLayout = findViewById(R.id.ratingTextField);
         ratingInputLayout.getEditText().addTextChangedListener(
-                new CustomTextWatcher(ratingInputLayout, this));
+                new CustomTextWatcher(ratingInputLayout, RegisterActivity.this));
 
     }
 
@@ -67,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity
     {
         if (error)
 
-            Snackbar.make(getCurrentFocus(), "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
+            Snackbar.make(view, "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
                     .setTextColor(getResources().getColor(R.color.grey_black))
                     .show();
@@ -89,15 +84,18 @@ public class RegisterActivity extends AppCompatActivity
             if (title.equals("") || year.equals("") || director.equals("") || actorActress.equals("") ||
                 review.equals("") || ratingString.equals("") )
 
-                Snackbar.make(getCurrentFocus(), "Please Enter all Fields !!!",Snackbar.LENGTH_SHORT)
+                Snackbar.make(view, "Please Enter all Fields !!!",Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
                         .setTextColor(getResources().getColor(R.color.grey_black))
                         .show();
 
             else
             {
+                System.out.println(error);
+
                 rating = Integer.parseInt(ratingString);
-                databaseHelper.addData(new Movie(title, year, director, actorActress, rating, review, false));
+                databaseHelper.addData(new Movie(title, year, director, actorActress, rating,
+                        review, false), view);
 
                 titleInputLayout.setPlaceholderText("");
                 dateInputLayout.setPlaceholderText("");
@@ -112,5 +110,10 @@ public class RegisterActivity extends AppCompatActivity
     public void setError(boolean error)
     {
         this.error = error;
+    }
+
+    public boolean getError()
+    {
+         return error;
     }
 }

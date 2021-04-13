@@ -3,20 +3,15 @@ package com.cinemaapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -32,7 +27,7 @@ public class DisplayActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
-        listView = (ListView) findViewById(R.id.registeredMoviesListView);
+        listView = findViewById(R.id.registeredMoviesListView);
         databaseHelper = new DatabaseHelper(this);
 
         populateListView();
@@ -41,7 +36,7 @@ public class DisplayActivity extends AppCompatActivity
     private void populateListView()
     {
         // Getting the Data from the Database and Adding it to a List to a list
-        Cursor data = databaseHelper.getData();
+        Cursor data = databaseHelper.getSortedData();
         movieTitles = new ArrayList<>();
         favorites = new ArrayList<>();
 
@@ -76,6 +71,7 @@ public class DisplayActivity extends AppCompatActivity
             count ++;
         }
 
+
     }
 
     /**
@@ -98,5 +94,18 @@ public class DisplayActivity extends AppCompatActivity
 
             count ++;
         }
+
+        if (favorites.size() > 0)
+
+            Snackbar.make(view, "Saved !",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.yellow))
+                    .setTextColor(getResources().getColor(R.color.black))
+                    .show();
+
+        else Snackbar.make(view, "There are no Movies !",Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(getResources().getColor(R.color.yellow))
+                .setTextColor(getResources().getColor(R.color.black))
+                .show();
+
     }
 }

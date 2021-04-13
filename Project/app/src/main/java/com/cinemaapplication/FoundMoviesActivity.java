@@ -3,7 +3,6 @@ package com.cinemaapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,10 +34,11 @@ public class FoundMoviesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_movies);
 
+        // Permitting all Network and Disk access of the Main Thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        listView = (ListView) findViewById(R.id.foundMoviesListView);
+        listView = findViewById(R.id.foundMoviesListView);
         populateListView();
     }
 
@@ -57,8 +57,8 @@ public class FoundMoviesActivity extends AppCompatActivity
         listView.setAdapter(adapter);
 
         /* Setting an ItemClickListener that calls the showDialogWithMoviePoster to show the
-         * Movie Poster in a AlertDialog, we also need to make the AlertDialog run on the Main
-         * Thread so we use runOnUiThread to make sure the AlertDialog is not run on Worker Threads
+         * Movie Poster in a Dialog, we also need to make the Dialog run on the Main
+         * Thread so we use runOnUiThread to make sure the Dialog is not run on Worker Threads
          */
         listView.setOnItemClickListener((parent, view, position, id) ->
 
@@ -77,20 +77,19 @@ public class FoundMoviesActivity extends AppCompatActivity
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         /* Inflating a new View with the Custom Layout made for this AlertDialog and changing the
          * View of the AlertDialog to this Inflated View
          */
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.image_dialog_layout, null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setCancelable(true);
 
         /* Try Catch Block that attempts to first parse the URL of the Movie Poster Image we want,
          * then attempts to connect to the URL using the openConnection Method and the
          * getInputStream Method attempts to get the Input Stream from that Socket. Finally the
          * static method decodeStream is accessed to decode the Input Stream in to a BitMap
+         *
+         * https://ranjithexpertisers.medium.com/load-image-from-url-in-android-studio-fe755a3348dd
          */
         URL url;
         Bitmap bmp = null;
@@ -107,6 +106,7 @@ public class FoundMoviesActivity extends AppCompatActivity
         {
             e.printStackTrace();
         }
+
         // Setting the Bitmap to the ImageView in the AlertDialog
         ImageView imageView = dialogView.findViewById(R.id.moviePosterImage);
         imageView.setImageBitmap(bmp);

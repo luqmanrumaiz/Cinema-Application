@@ -4,7 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -66,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
      *
      * @param movieToAdd The Movie Object that contains the Details to be added to the Database
      */
-    public void addData(Movie movieToAdd)
+    public void addData(Movie movieToAdd, View view)
     {
         /* Creating a DatabaseHelper Instance to access the getData Method in order to get the
          * Title (Index 1 in terms of Columns) of all the saved Movies in the Database and to make
@@ -86,9 +89,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         // Error Message if the Title of the Movie to Add Already is found
         if (listLabels.contains(movieToAdd.getTitle()))
-        {
-            Toast.makeText(context,"Movie Already has been Registered", Toast.LENGTH_SHORT).show();
-        }
+
+            Snackbar.make(view, "Movie Already has already been Registered !!!",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(context.getResources().getColor(R.color.transparent_yellow))
+                    .setTextColor(context.getResources().getColor(R.color.grey_black))
+                    .show();
+
         else
         {
             int favorite = 0;
@@ -107,7 +113,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
                     + movieToAdd.getRating() + ", '" + movieToAdd.getReview() + "', " +  favorite
                     + ")");
 
-            Toast.makeText(context, "Movie Registered Successfully", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, "Successfully Registered !",Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(context.getResources().getColor(R.color.transparent_yellow))
+                    .setTextColor(context.getResources().getColor(R.color.grey_black))
+                    .show();
         }
     }
 
@@ -118,9 +127,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
      */
     public Cursor getData()
     {
+        return this.getWritableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME, null);
+    }
+
+    /**
+     * This Method returns a Cursor containing Rows for all Columns in the Database sorted
+     * in Alphabetical Order
+     *
+     * @return Cursor containing Data for All Movies
+     */
+    public Cursor getSortedData()
+    {
         return this.getWritableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_NAME +
-                    " ORDER BY " + COL2 + " ASC", null);
+                        " ORDER BY " + COL2 + " ASC", null);
     }
 
     /**

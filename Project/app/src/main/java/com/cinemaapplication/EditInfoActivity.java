@@ -88,7 +88,7 @@ public class EditInfoActivity extends AppCompatActivity
     {
         if (error)
 
-            Snackbar.make(getCurrentFocus(), "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
+            Snackbar.make(view, "Please Resolve all Errors !!!",Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
                     .setTextColor(getResources().getColor(R.color.grey_black))
                     .show();
@@ -101,19 +101,25 @@ public class EditInfoActivity extends AppCompatActivity
             String director = directorInputLayout.getEditText().getText().toString().trim();
             String actorActress = actorActressInputLayout.getEditText().getText().toString().trim();
             String review = reviewInputLayout.getEditText().getText().toString().trim();
-            int rating = (int) Math.round(ratingRatingBar.getRating());
+            int rating = Math.round(ratingRatingBar.getRating());
 
             // If any of the Values from TextFields are empty an Error Message is shown
             if (title.equals("") || year.equals("") || director.equals("") || actorActress.equals("") ||
                     review.equals(""))
 
-                Snackbar.make(getCurrentFocus(), "Fill all Empty TextFields !!!",Snackbar.LENGTH_SHORT)
+                Snackbar.make(view, "Fill all Empty TextFields !!!",Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.transparent_yellow))
                         .setTextColor(getResources().getColor(R.color.grey_black))
                         .show();
 
-            else databaseHelper.editMovie(movieId, new Movie(title, year, director, actorActress,
-                    rating, review, favoriteSwitch.isChecked()));
+            else
+            {
+                System.out.println(rating);
+                System.out.println(movieId);
+                databaseHelper.editMovie(movieId + 1, new Movie(title, year, director, actorActress,
+                        rating, review, favoriteSwitch.isChecked()));
+
+            }
 
         }
     }
